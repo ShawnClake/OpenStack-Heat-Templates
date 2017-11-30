@@ -1,0 +1,54 @@
+heat_template_version: 2015-04-30
+
+parameters:
+  key_name:
+    type: string
+    description: Name of a KeyPair
+  flavor_name:
+    type: string
+    description: Name of a Flavor
+  image_name:
+    type: string
+    description: Name of an Image
+  network_name:
+    type: string
+    description: Name of external network to connect gateway to
+
+resources:
+  internal_net:
+    type: OS::Neutron::Net
+
+  internal_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      network_id: { get_resource: internal_net }
+      cidr: "172.16.126.0/24"
+      ip_version: 4
+
+  internal_router:
+    type: OS::Neutron::Router
+    properties:
+      external_gateway_info: { get_param: network_name }
+
+  internal_interface:
+    type: OS::Neutron::RouterInterface
+    properties:
+      router_id: { get_resource: internal_router }
+      subnet: { get_resource: internal_subnet }
+
+  server1:
+    type: http://142.164.37.192/templates/1i.yaml
+    properties:
+      key_name: { get_param: key_name }
+      flavor_name: { get_param: flavor_name }
+      image_name: { get_param: image_name }
+      networks: { get_resource: internal_net }
+
+  server2:
+    type: http://142.164.37.192/templates/1i.yaml
+    properties:
+      key_name: { get_param: key_name }
+      flavor_name: { get_param: flavor_name }
+      image_name: { get_param: image_name }
+      networks: { get_resource: internal_net }
+

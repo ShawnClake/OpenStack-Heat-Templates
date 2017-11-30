@@ -1,0 +1,45 @@
+heat_template_version: 2017-09-01
+
+parameters:
+  key_name:
+    type: string
+    description: Name of a KeyPair
+  flavor_name:
+    type: string
+    description: Name of a Flavor
+  image_name:
+    type: string
+    description: Name of an Image
+  subnet_cidr:
+    type: string
+    description: CIDR for this network
+
+resources:
+  internal_net:
+    type: OS::Neutron::Net
+
+  internal_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      network_id: { get_resource: internal_net }
+      cidr: { get_param: subnet_cidr }
+      ip_version: 4
+
+  server1:
+    type: http://142.164.37.192/templates/1i.yaml
+    properties:
+      key_name: { get_param: key_name }
+      flavor_name: { get_param: flavor_name }
+      image_name: { get_param: image_name }
+      networks: { get_resource: internal_net }
+
+  server2:
+    type: http://142.164.37.192/templates/1i.yaml
+    properties:
+      key_name: { get_param: key_name }
+      flavor_name: { get_param: flavor_name }
+      image_name: { get_param: image_name }
+      networks: { get_resource: internal_net }
+
+
+
