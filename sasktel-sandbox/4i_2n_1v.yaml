@@ -41,7 +41,6 @@ resources:
     type: OS::Neutron::Port
     properties:
       network: { get_attr: [tenant1, resource.internal_net] }
-      port_security_enabled: false
       fixed_ips:
         - ip_address: { get_attr: [tenant1, resource.internal_subnet, gateway_ip] }
       security_groups:
@@ -54,7 +53,6 @@ resources:
     type: OS::Neutron::Port
     properties:
       network: { get_attr: [tenant2, resource.internal_net] }
-      port_security_enabled: false
       fixed_ips:
         - ip_address: { get_attr: [tenant2, resource.internal_subnet, gateway_ip] }
       security_groups:
@@ -67,7 +65,6 @@ resources:
     type: OS::Neutron::Port
     properties:
       network: provider_network
-      port_security_enabled: false
       security_groups:
         - default
         - ssh
