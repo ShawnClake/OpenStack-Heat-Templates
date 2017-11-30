@@ -6,19 +6,19 @@ parameters:
   image:
     type: string
     description: 'image used to create instance'
-    default: cirros
+    default: Cirros
   flavor:
     type: string
     description: 'instance flavor to be used'
-    default: m1.tiny
+    default: m1.small
   key_name:
     type: string
     description: 'keypair to be used'
-    default: mykeypair
+    default: keypair
   network:
     type: string
     description: 'project network to attach instance to'
-    default: internal1
+    default: provider_network
 resources:
   server:
     type: 'OS::Nova::Server'
