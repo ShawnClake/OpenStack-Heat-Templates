@@ -53,13 +53,5 @@ resources:
         - vnc
         - ping
 
-outputs:
-  internal_net:
-    description: inet1
-    value: { get_attr: [tenant1, resource.internal_net] }
-
-  internal_net2:
-    description: inet2
-    value: { get_attr: [tenant2, resource.internal_net] }
 
 
