@@ -41,8 +41,8 @@ resources:
     type: OS::Neutron::Port
     properties:
       network: { get_attr: [tenant1, resource.internal_net] }
+      port_security_enabled: false
       fixed_ips:
-        - subnet: { get_attr: [tenant1, resource.internal_subnet] }
         - ip_address: { get_attr: [tenant1, resource.internal_subnet, gateway_ip] }
       security_groups:
         - default
@@ -54,9 +54,20 @@ resources:
     type: OS::Neutron::Port
     properties:
       network: { get_attr: [tenant2, resource.internal_net] }
+      port_security_enabled: false
       fixed_ips:
-        - subnet: { get_attr: [tenant2, resource.internal_subnet] }
         - ip_address: { get_attr: [tenant2, resource.internal_subnet, gateway_ip] }
+      security_groups:
+        - default
+        - ssh
+        - vnc
+        - ping
+        
+  provider_port:
+    type: OS::Neutron::Port
+    properties:
+      network: provider_network
+      port_security_enabled: false
       security_groups:
         - default
         - ssh
@@ -70,7 +81,7 @@ resources:
       flavor: { get_param: flavor_name }
       image: { get_param: vnf_image_name }
       networks: 
-        - network: provider_network
+        - port: { get_resource:provider_port }
         - port: { get_resource: tenant1_gateway_port }
         - port: { get_resource: tenant2_gateway_port }
 
