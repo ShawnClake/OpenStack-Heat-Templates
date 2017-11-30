@@ -41,7 +41,7 @@ resources:
     type: OS::Nova::Server
     properties:
       key_name: { get_param: key_name }
-      flavor: sktel.tiny
+      flavor: { get_param: flavor_name }
       image: { get_param: vnf_image_name }
       networks: 
         - network: provider_network
