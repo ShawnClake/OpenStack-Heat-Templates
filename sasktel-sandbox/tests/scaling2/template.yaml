@@ -8,7 +8,7 @@ resources:
       desired_capacity: 1
       max_size: 3
       min_size: 1
-      resource: { type: 'OS::Nova::Server::Cirros', properties: { metadata: { metering.server_group: { get_param: 'OS::stack_id' } } } }
+      resource: { type: 'https://raw.githubusercontent.com/ShawnClake/OpenStack-Heat-Templates/sasktel-sandbox/sasktel-sandbox/tests/scaling2/cirros.yaml', properties: { metadata: { metering.server_group: { get_param: 'OS::stack_id' } } } }
   scaleup_policy:
     type: 'OS::Heat::ScalingPolicy'
     properties:
