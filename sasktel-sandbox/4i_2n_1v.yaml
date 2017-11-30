@@ -22,7 +22,7 @@ parameters:
 
 resources:
   tenant1:
-    type: http://142.164.37.192/templates/2i_1n.yaml
+    type: https://raw.githubusercontent.com/ShawnClake/OpenStack-Heat-Templates/sasktel-sandbox/sasktel-sandbox/2i_1n.yaml
     properties:
       key_name: { get_param: key_name }
       flavor_name: { get_param: flavor_name }
@@ -30,7 +30,7 @@ resources:
       subnet_cidr: { get_param: tenant1_cidr }
 
   tenant2:
-    type: http://142.164.37.192/templates/2i_1n.yaml
+    type: https://raw.githubusercontent.com/ShawnClake/OpenStack-Heat-Templates/sasktel-sandbox/sasktel-sandbox/2i_1n.yaml
     properties:
       key_name: { get_param: key_name }
       flavor_name: { get_param: flavor_name }
