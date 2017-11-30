@@ -1,4 +1,4 @@
-heat_template_version: 2016-10-14T00:00:00.000Z
+heat_template_version: 2016-10-14
 description: 'Template to spawn an cirros instance.'
 parameters:
   metadata:
