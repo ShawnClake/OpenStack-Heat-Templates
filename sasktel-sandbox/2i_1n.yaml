@@ -26,7 +26,7 @@ resources:
       ip_version: 4
 
   server1:
-    type: http://142.164.37.192/templates/1i.yaml
+    type: https://raw.githubusercontent.com/ShawnClake/OpenStack-Heat-Templates/sasktel-sandbox/sasktel-sandbox/1i.yaml
     properties:
       key_name: { get_param: key_name }
       flavor_name: { get_param: flavor_name }
@@ -34,7 +34,7 @@ resources:
       networks: { get_resource: internal_net }
 
   server2:
-    type: http://142.164.37.192/templates/1i.yaml
+    type: https://raw.githubusercontent.com/ShawnClake/OpenStack-Heat-Templates/sasktel-sandbox/sasktel-sandbox/1i.yaml
     properties:
       key_name: { get_param: key_name }
       flavor_name: { get_param: flavor_name }
