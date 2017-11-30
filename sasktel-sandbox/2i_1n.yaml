@@ -26,19 +26,19 @@ resources:
       ip_version: 4
 
   server1:
-    type: https://raw.githubusercontent.com/ShawnClake/OpenStack-Heat-Templates/sasktel-sandbox/sasktel-sandbox/1i.yaml
+    type: OS::Nova::Server
     properties:
       key_name: { get_param: key_name }
-      flavor_name: { get_param: flavor_name }
-      image_name: { get_param: image_name }
+      flavor: { get_param: flavor_name }
+      image: { get_param: image_name }
       networks: { get_resource: internal_net }
 
   server2:
-    type: https://raw.githubusercontent.com/ShawnClake/OpenStack-Heat-Templates/sasktel-sandbox/sasktel-sandbox/1i.yaml
+    type: OS::Nova::Server
     properties:
       key_name: { get_param: key_name }
-      flavor_name: { get_param: flavor_name }
-      image_name: { get_param: image_name }
+      flavor: { get_param: flavor_name }
+      image: { get_param: image_name }
       networks: { get_resource: internal_net }
 
 
