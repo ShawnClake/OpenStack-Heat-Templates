@@ -36,6 +36,22 @@ resources:
       flavor_name: { get_param: flavor_name }
       image_name: { get_param: image_name }
       subnet_cidr: { get_param: tenant2_cidr }
+      
+  tenant1_gateway_port:
+    type: OS::Neutron::Port
+    properties:
+      network: { get_attr: [tenant1, resource.internal_net] }
+      fixed_ips:
+        - subnet: { get_attr: [tenant1, resource.internal_subnet] }
+        - ip_address: { get_attr: [tenant1, resource.internal_subnet, gateway_ip] }
+        
+  tenant2_gateway_port:
+    type: OS::Neutron::Port
+    properties:
+      network: { get_attr: [tenant2, resource.internal_net] }
+      fixed_ips:
+        - subnet: { get_attr: [tenant2, resource.internal_subnet] }
+        - ip_address: { get_attr: [tenant2, resource.internal_subnet, gateway_ip] }
 
   vnf-server:
     type: OS::Nova::Server
@@ -45,8 +61,8 @@ resources:
       image: { get_param: vnf_image_name }
       networks: 
         - network: provider_network
-        - network: { get_attr: [tenant1, resource.internal_net] }
-        - network: { get_attr: [tenant2, resource.internal_net] }
+        - port: { get_resource: tenant1_gateway_port }
+        - port: { get_resource: tenant2_gateway_port }
       security_groups:
         - default
         - ssh
