@@ -31,7 +31,8 @@ resources:
       key_name: { get_param: key_name }
       flavor: { get_param: flavor_name }
       image: { get_param: image_name }
-      networks: { get_resource: internal_net }
+      networks:
+        - network: { get_resource: internal_net }
 
   server2:
     type: OS::Nova::Server
@@ -39,7 +40,8 @@ resources:
       key_name: { get_param: key_name }
       flavor: { get_param: flavor_name }
       image: { get_param: image_name }
-      networks: { get_resource: internal_net }
+      networks: 
+        - network: { get_resource: internal_net }
 
 
 
