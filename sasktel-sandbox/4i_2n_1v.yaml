@@ -6,7 +6,7 @@ parameters:
     description: Name of a KeyPair
   flavor_name:
     type: string
-    description: Name of a Flavor
+    description: Name of a Flavors
   image_name:
     type: string
     description: Name of an Image
