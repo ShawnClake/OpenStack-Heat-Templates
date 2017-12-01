@@ -4,7 +4,7 @@ resources:
   scaleup_group:
     type: 'OS::Heat::AutoScalingGroup'
     properties:
-      cooldown: 300
+      cooldown: 600
       desired_capacity: 1
       max_size: 3
       min_size: 1
@@ -14,14 +14,14 @@ resources:
     properties:
       adjustment_type: change_in_capacity
       auto_scaling_group_id: { get_resource: scaleup_group }
-      cooldown: 300
+      cooldown: 600
       scaling_adjustment: 1
   scaledown_policy:
     type: 'OS::Heat::ScalingPolicy'
     properties:
       adjustment_type: change_in_capacity
       auto_scaling_group_id: { get_resource: scaleup_group }
-      cooldown: 300
+      cooldown: 600
       scaling_adjustment: -1
   cpu_alarm_high:
     type: 'OS::Aodh::GnocchiAggregationByResourcesAlarm'
@@ -29,7 +29,7 @@ resources:
       description: 'Scale up if CPU > 80%'
       metric: cpu_util
       aggregation_method: mean
-      granularity: 300
+      granularity: 600
       evaluation_periods: 1
       threshold: 70
       resource_type: instance
@@ -46,7 +46,7 @@ resources:
     properties:
       metric: cpu_util
       aggregation_method: mean
-      granularity: 300
+      granularity: 600
       evaluation_periods: 1
       threshold: 10
       resource_type: instance
@@ -65,4 +65,9 @@ outputs:
   scaledown_policy_signal_url:
     value:
       get_attr: [scaledown_policy, signal_url]
-
+  scaleup_policy_alarm_url:
+    value:
+      get_attr: [scaleup_policy, alarm_url]
+  scaledown_policy_alarm_url:
+    value:
+      get_attr: [scaledown_policy, alarm_url]
