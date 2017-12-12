@@ -33,5 +33,4 @@ resources:
             network: <%nwork%> 
       security_groups:
         - default
-        - ssh
 
