@@ -16,7 +16,7 @@ parameters:
   networks:
     type: comma_delimited_list
     description: Network IDs
-    default: provider_network
+    default: [provider_network]
 
 resources:
   server:
