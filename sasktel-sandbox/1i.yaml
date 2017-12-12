@@ -4,15 +4,19 @@ parameters:
   key_name:
     type: string
     description: Name of a KeyPair
+    default: keypair
   flavor_name:
     type: string
     description: Name of a Flavor
+    default: sktel.small
   image_name:
     type: string
     description: Name of an Image
+    default: cirros
   networks:
     type: comma_delimited_list
     description: Network IDs
+    default: provider_network
 
 resources:
   server:
