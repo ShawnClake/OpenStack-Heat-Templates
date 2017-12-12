@@ -57,7 +57,8 @@ resources:
     type: OS::Neutron::Port
     properties:
       network: provider_network
-      port_security_enabled: false
+      security_groups:
+        - open
 
   vnf-server:
     type: OS::Nova::Server
