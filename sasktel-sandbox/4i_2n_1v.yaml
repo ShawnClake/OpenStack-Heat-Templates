@@ -43,11 +43,7 @@ resources:
       network: { get_attr: [tenant1, resource.internal_net] }
       fixed_ips:
         - ip_address: { get_attr: [tenant1, resource.internal_subnet, gateway_ip] }
-      security_groups:
-        - default
-        - ssh
-        - vnc
-        - ping
+      port_security_enabled: false
         
   tenant2_gateway_port:
     type: OS::Neutron::Port
@@ -55,21 +51,13 @@ resources:
       network: { get_attr: [tenant2, resource.internal_net] }
       fixed_ips:
         - ip_address: { get_attr: [tenant2, resource.internal_subnet, gateway_ip] }
-      security_groups:
-        - default
-        - ssh
-        - vnc
-        - ping
+      port_security_enabled: false
         
   provider_port:
     type: OS::Neutron::Port
     properties:
       network: provider_network
-      security_groups:
-        - default
-        - ssh
-        - vnc
-        - ping
+      port_security_enabled: false
 
   vnf-server:
     type: OS::Nova::Server
