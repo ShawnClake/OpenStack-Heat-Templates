@@ -92,7 +92,7 @@ resources:
   trouter:
     type: OS::Neutron::Router
     properties:
-      external_gateway_info: { get_param: provider_network }
+      external_gateway_info: provider_network
 
   trouter_interface1:
     type: OS::Neutron::RouterInterface
