@@ -79,15 +79,13 @@ resources:
     type: OS::Neutron::Port
     properties:
       network: { get_resource: tnet }
-      security_groups:
-        - open
+      port_security_enabled: false
         
   tnet_port2:
     type: OS::Neutron::Port
     properties:
       network: { get_resource: tnet }
-      security_groups:
-        - open
+      port_security_enabled: false
         
   trouter:
     type: OS::Neutron::Router
