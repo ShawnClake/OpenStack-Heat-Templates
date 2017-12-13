@@ -78,14 +78,14 @@ resources:
   tnet_port1:
     type: OS::Neutron::Port
     properties:
-      network: tnet
+      network: { get_resource: tnet }
       security_groups:
         - open
         
   tnet_port2:
     type: OS::Neutron::Port
     properties:
-      network: tnet
+      network: { get_resource: tnet }
       security_groups:
         - open
         
