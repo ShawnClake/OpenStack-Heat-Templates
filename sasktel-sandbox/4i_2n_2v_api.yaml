@@ -105,7 +105,7 @@ resources:
       flavor: { get_param: flavor_name }
       image: { get_param: vnf_image_name }
       networks: 
-        - port: { get_resource: tnet }
+        - port: { get_resource: tnet_port1 }
         - port: { get_resource: tenant1_gateway_port }
         
   vnf-server2:
@@ -115,5 +115,5 @@ resources:
       flavor: { get_param: flavor_name }
       image: { get_param: vnf_image_name }
       networks: 
-        - port: { get_resource: tnet }
+        - port: { get_resource: tnet_port2 }
         - port: { get_resource: tenant2_gateway_port }
