@@ -16,7 +16,7 @@ parameters:
   vnf_image_name:
     type: string
     description: Name of a VNF image
-    default: vyos
+    default: cirros
   tenant1_cidr:
     type: string
     description: CIDR for Tenant 1
@@ -55,5 +55,5 @@ resources:
       networks: 
         - port: { get_resource: provider_port }
         - port: { get_resource: tenant1_gateway_port }
-      user_data: "#!/bin/vbash \n source /opt/vyatta/etc/functions/script-template \n set system hostname shawn \n commit \n save"
+      user_data: "#!/bin/bash \n touch.txt"
       user_data_format: RAW
