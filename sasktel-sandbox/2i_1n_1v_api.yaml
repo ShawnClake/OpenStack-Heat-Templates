@@ -55,5 +55,5 @@ resources:
       networks: 
         - port: { get_resource: provider_port }
         - port: { get_resource: tenant1_gateway_port }
-      user_data: "#!/bin/bash \n touch.txt"
+      user_data: "#!/bin/bash \n touch test.txt"
       user_data_format: RAW
