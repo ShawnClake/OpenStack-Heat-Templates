@@ -1,0 +1,36 @@
+heat_template_version: 2017-02-24
+
+parameters:
+  key_name:
+    type: string
+    description: Name of a KeyPair
+    default: keypair
+  flavor_name:
+    type: string
+    description: Name of a Flavor
+    default: sktel.small
+  image_name:
+    type: string
+    description: Name of an Image
+    default: cirros
+  networks:
+    type: comma_delimited_list
+    description: Network IDs
+    default: [provider_network]
+
+resources:
+  server:
+    type: OS::Nova::Server
+    properties:
+      key_name: { get_param: key_name }
+      image: { get_param: image_name }
+      flavor: { get_param: flavor_name }
+      networks: 
+        repeat:
+          for_each:
+            <%nwork%>: { get_param: networks }
+          template:
+            network: <%nwork%> 
+      security_groups:
+        - default
+

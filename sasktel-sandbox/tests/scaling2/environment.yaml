@@ -1,0 +1,2 @@
+resource_registry:
+  "OS::Nova::Server::Cirros": https://raw.githubusercontent.com/ShawnClake/OpenStack-Heat-Templates/sasktel-sandbox/sasktel-sandbox/tests/scaling2/cirros.yaml

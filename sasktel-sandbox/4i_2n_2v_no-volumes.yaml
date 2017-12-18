@@ -1,0 +1,89 @@
+heat_template_version: 2017-09-01
+
+parameters:
+  key_name:
+    type: string
+    description: Name of a KeyPair
+  flavor_name:
+    type: string
+    description: Name of a Flavor
+  image_name:
+    type: string
+    description: Name of an Image
+  vnf_volume_name:
+    type: string
+    description: Name of a VNF Volume
+  vnf_image_name:
+    type: string
+    description: Name of a VNF Image
+  tenant1_cidr:
+    type: string
+    description: CIDR for Tenant 1
+  tenant2_cidr:
+    type: string
+    description: CIDR for Tenant 2
+  connect_to_prov:
+    type: boolean
+    description: Connect VNF's to provider?    
+
+resources:
+  tenant1:
+    type: http://142.164.37.192/templates/2i_1n.yaml
+    properties:
+      key_name: { get_param: key_name }
+      flavor_name: { get_param: flavor_name }
+      image_name: { get_param: image_name }
+      subnet_cidr: { get_param: tenant1_cidr }
+
+  tenant2:
+    type: http://142.164.37.192/templates/2i_1n.yaml
+    properties:
+      key_name: { get_param: key_name }
+      flavor_name: { get_param: flavor_name }
+      image_name: { get_param: image_name }
+      subnet_cidr: { get_param: tenant2_cidr }
+
+  vnf-server1:
+    type: OS::Nova::Server
+    properties:
+      key_name: { get_param: key_name }
+      flavor: sktel.small
+      image: { get_param: vnf_image_name }
+      networks: 
+        - network: provider_network
+        - network: { get_attr: [tenant1, resource.internal_net] }
+      security_groups:
+        - default
+        - ssh
+        - vnc
+        - ping
+
+  vnf-server2:
+    type: OS::Nova::Server
+    properties:
+      key_name: { get_param: key_name }
+      flavor: sktel.small
+      image: { get_param: vnf_image_name }
+      networks: 
+        - network: provider_network
+        - network: { get_attr: [tenant2, resource.internal_net] }
+      security_groups:
+        - default
+        - ssh
+        - vnc
+        - ping
+
+outputs:
+  internal_net:
+    description: inet1
+    value: { get_attr: [tenant1, resource.internal_net] }
+
+  internal_net2:
+    description: inet2
+    value: { get_attr: [tenant2, resource.internal_net] }
+
+  outster:
+    description: inet2
+    value: { get_attr: [vnf-server1] }
+
+
